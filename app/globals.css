@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f7f2;
+  --foreground: #152018;
+
+  --bunker-green: #1f5c3f;
+  --bunker-green-dark: #163f2c;
+  --bunker-accent: #7cc26b;
+  --bunker-soft: #edf4ea;
+  --bunker-card: rgba(255, 255, 255, 0.78);
+  --bunker-border: rgba(31, 92, 63, 0.12);
+  --bunker-shadow: 0 10px 30px rgba(21, 32, 24, 0.08);
+}
+
+html,
+body {
+  background:
+    radial-gradient(circle at top right, rgba(124, 194, 107, 0.18), transparent 25%),
+    radial-gradient(circle at top left, rgba(31, 92, 63, 0.08), transparent 20%),
+    linear-gradient(180deg, #f8faf6 0%, #eef4eb 100%);
+  color: var(--foreground);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input,
+select,
+button,
+textarea {
+  font: inherit;
+}
+
+input[type="date"] {
+  color-scheme: light;
+  color: #152018;
+  background-color: white;
+}
+
+select {
+  color-scheme: light;
+}
+
+::selection {
+  background: rgba(31, 92, 63, 0.18);
+}
+
+.bunker-shell {
+  min-height: 100vh;
+  color: #152018;
+}
+
+.bunker-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+@media (min-width: 768px) {
+  .bunker-page {
+    padding: 2.25rem 1.5rem 3.5rem;
+  }
+}
+
+.bunker-hero {
+  background:
+    linear-gradient(135deg, rgba(31, 92, 63, 0.95), rgba(22, 63, 44, 0.92)),
+    radial-gradient(circle at top right, rgba(124, 194, 107, 0.35), transparent 30%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--bunker-shadow);
+  border-radius: 28px;
+}
+
+.bunker-card {
+  background: var(--bunker-card);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--bunker-border);
+  box-shadow: var(--bunker-shadow);
+  border-radius: 24px;
+}
+
+.bunker-card-strong {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(31, 92, 63, 0.14);
+  box-shadow: var(--bunker-shadow);
+  border-radius: 24px;
+}
+
+.bunker-muted {
+  color: #5f6f63;
+}
+
+.bunker-input {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(31, 92, 63, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  color: #152018;
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.bunker-input:focus {
+  border-color: rgba(31, 92, 63, 0.45);
+  box-shadow: 0 0 0 4px rgba(31, 92, 63, 0.08);
+}
+
+.bunker-button-primary {
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1f5c3f, #2d7a54);
+  color: white;
+  font-weight: 700;
+  padding: 0.85rem 1.2rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(31, 92, 63, 0.18);
+}
+
+.bunker-button-primary:hover {
+  opacity: 0.96;
+  transform: translateY(-1px);
+}
+
+.bunker-button-secondary {
+  border: 1px solid rgba(31, 92, 63, 0.15);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1f5c3f;
+  font-weight: 700;
+  padding: 0.85rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bunker-button-secondary:hover {
+  background: white;
+}
+
+.bunker-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}

@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum BayType {
+  standard
+  vip
+}
+
+enum ReservationType {
+  pay_now
+  reserve_only
+}
+
+enum ReservationStatus {
+  pending
+  confirmed
+  paid
+  cancelled
+  no_show
+  completed
+}
+
+enum PaymentStatus {
+  unpaid
+  partial
+  paid
+  refunded
+  failed
+}
+
+model Bay {
+  id           Int           @id @default(autoincrement())
+  code         String        @unique
+  name         String
+  bayType      BayType
+  capacity     Int
+  basePrice    Float
+  isActive     Boolean       @default(true)
+  displayOrder Int
+
+  reservations Reservation[]
+}
+
+model Customer {
+  id           Int           @id @default(autoincrement())
+  fullName     String
+  phone        String?
+  email        String?
+
+  reservations Reservation[]
+}
+
+model Reservation {
+  id                Int               @id @default(autoincrement())
+  reservationCode   String            @unique
+  customerId        Int
+  bayId             Int
+  reservationDate   DateTime
+  startTime         String
+  durationHours     Int
+  guestCount        Int
+  reservationType   ReservationType
+  reservationStatus ReservationStatus
+  paymentStatus     PaymentStatus
+  totalAmount       Float
+
+  customer          Customer          @relation(fields: [customerId], references: [id])
+  bay               Bay               @relation(fields: [bayId], references: [id])
+}
