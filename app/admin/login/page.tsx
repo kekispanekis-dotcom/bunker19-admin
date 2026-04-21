@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const searchParams = useSearchParams();
+
+  const reason = searchParams.get("reason");
 
   async function handleLogin() {
     setError("");
@@ -31,6 +35,12 @@ export default function AdminLoginPage() {
     <main className="min-h-screen flex items-center justify-center bg-neutral-100 px-4">
       <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl">
         <h1 className="mb-4 text-2xl font-bold text-neutral-900">Admin Login</h1>
+
+        {reason === "expired" ? (
+          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+            Tu sesión expiró. Vuelve a iniciar sesión.
+          </div>
+        ) : null}
 
         <input
           type="password"

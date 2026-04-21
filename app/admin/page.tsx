@@ -7,7 +7,7 @@ export default async function AdminPage() {
   const authCookie = cookieStore.get("admin-auth");
 
   if (authCookie?.value !== "true") {
-    redirect("/admin/login");
+    redirect("/admin/login?reason=expired");
   }
 
   return <AdminClient />;

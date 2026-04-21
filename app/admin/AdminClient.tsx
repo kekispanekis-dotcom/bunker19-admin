@@ -159,13 +159,13 @@ export default function AdminPage() {
   const [draggedReservationId, setDraggedReservationId] = useState<number | null>(null);
   const [dragOverCell, setDragOverCell] = useState<string | null>(null);
 
-  async function handleLogout() {
+async function handleLogout() {
   await fetch("/api/admin/logout", {
     method: "POST",
     cache: "no-store",
   });
 
-  window.location.href = "/admin/login";
+  window.location.href = "/admin/login?reason=expired";
 }
 
   async function fetchSchedule(targetDate: string) {
