@@ -1,6 +1,27 @@
 import { NextResponse } from "next/server";
 import { prisma } from "../../../../../lib/prisma";
 
+type BayItem = {
+  id: number;
+  code: string;
+  name: string;
+};
+
+type ReservationItem = {
+  id: number;
+  reservationCode: string;
+  customerId: number;
+  bayId: number;
+  startTime: string;
+  durationHours: number;
+  reservationStatus: string;
+  paymentStatus: string;
+  totalAmount: number;
+  customer: {
+    fullName: string | null;
+  } | null;
+};
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -15,11 +36,11 @@ export async function GET(request: Request) {
 
     const reservationDate = new Date(date + "T00:00:00");
 
-    const bays = await prisma.bay.findMany({
+    const bays = (await prisma.bay.findMany({
       orderBy: { displayOrder: "asc" },
-    });
+    })) as BayItem[];
 
-    const reservations = await prisma.reservation.findMany({
+    const reservations = (await prisma.reservation.findMany({
       where: {
         reservationDate,
       },
@@ -29,17 +50,18 @@ export async function GET(request: Request) {
       include: {
         customer: true,
       },
-    });
+    })) as ReservationItem[];
 
-    const schedule = bays.map((bay) => ({
+    const schedule = bays.map((bay: BayItem) => ({
       bayCode: bay.code,
       bayName: bay.name,
       entries: reservations
-        .filter((reservation) => reservation.bayId === bay.id)
-        .map((reservation) => ({
+        .filter((reservation: ReservationItem) => reservation.bayId === bay.id)
+        .map((reservation: ReservationItem) => ({
           id: reservation.id,
           code: reservation.reservationCode,
-          customer: reservation.customer?.fullName || `Cliente ${reservation.customerId}`,
+          customer:
+            reservation.customer?.fullName || `Cliente ${reservation.customerId}`,
           startTime: reservation.startTime,
           durationHours: reservation.durationHours,
           status: reservation.reservationStatus,
