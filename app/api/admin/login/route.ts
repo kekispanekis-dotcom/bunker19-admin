@@ -10,6 +10,7 @@ export async function POST(request: Request) {
     res.cookies.set("admin-auth", "true", {
       httpOnly: true,
       secure: true,
+      sameSite: "lax",
       path: "/",
     });
 
