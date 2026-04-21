@@ -1,20 +1,55 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-const adapter = new PrismaBetterSqlite3({
-  url: process.env.DATABASE_URL || "file:./dev.db",
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL!,
 });
 
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const bays = [
-    { code: "B1", name: "Bahía B1", bayType: "standard", capacity: 6, basePrice: 600, displayOrder: 1 },
-    { code: "B2", name: "Bahía B2", bayType: "standard", capacity: 6, basePrice: 600, displayOrder: 2 },
-    { code: "B3", name: "Bahía B3", bayType: "standard", capacity: 6, basePrice: 600, displayOrder: 3 },
-    { code: "B4", name: "Bahía B4", bayType: "standard", capacity: 6, basePrice: 600, displayOrder: 4 },
-    { code: "B19", name: "Bahía B19 VIP", bayType: "vip", capacity: 10, basePrice: 950, displayOrder: 5 },
+    {
+      code: "B1",
+      name: "Bahía B1",
+      bayType: "standard",
+      capacity: 6,
+      basePrice: 600,
+      displayOrder: 1,
+    },
+    {
+      code: "B2",
+      name: "Bahía B2",
+      bayType: "standard",
+      capacity: 6,
+      basePrice: 600,
+      displayOrder: 2,
+    },
+    {
+      code: "B3",
+      name: "Bahía B3",
+      bayType: "standard",
+      capacity: 6,
+      basePrice: 600,
+      displayOrder: 3,
+    },
+    {
+      code: "B4",
+      name: "Bahía B4",
+      bayType: "standard",
+      capacity: 6,
+      basePrice: 600,
+      displayOrder: 4,
+    },
+    {
+      code: "B19",
+      name: "Bahía B19 VIP",
+      bayType: "vip",
+      capacity: 10,
+      basePrice: 950,
+      displayOrder: 5,
+    },
   ] as const;
 
   for (const bay of bays) {
@@ -40,7 +75,7 @@ async function main() {
     });
   }
 
-  console.log("Bahías creadas o actualizadas.");
+  console.log("Bahías cargadas correctamente.");
 }
 
 main()
