@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+const EIGHT_HOURS = 60 * 60 * 8;
+
 export async function POST(request: Request) {
   const body = await request.json();
   const password = body.password;
@@ -12,6 +14,7 @@ export async function POST(request: Request) {
       secure: true,
       sameSite: "lax",
       path: "/",
+      maxAge: EIGHT_HOURS,
     });
 
     return res;
