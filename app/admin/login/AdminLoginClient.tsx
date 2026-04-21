@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Lock, ShieldCheck, ArrowRight } from "lucide-react";
 
 export default function AdminLoginClient({
@@ -50,7 +51,20 @@ export default function AdminLoginClient({
               Bunker 19 · Admin
             </div>
 
-            <h1 className="mt-6 text-5xl font-black tracking-tight">
+            <div className="mt-8 flex items-center gap-4">
+              <div className="relative h-20 w-48 overflow-hidden rounded-2xl border border-white/10 bg-white/95 shadow-[0_10px_24px_rgba(0,0,0,0.10)]">
+                <Image
+                  src="/logo-bunker19.png"
+                  alt="Bunker 19"
+                  fill
+                  sizes="192px"
+                  className="object-contain p-3"
+                  priority
+                />
+              </div>
+            </div>
+
+            <h1 className="mt-8 text-5xl font-black tracking-tight">
               Acceso seguro al panel operativo
             </h1>
 
@@ -87,6 +101,19 @@ export default function AdminLoginClient({
         <section>
           <div className="rounded-[32px] border border-[rgba(31,92,63,0.10)] bg-[rgba(255,255,255,0.88)] p-6 shadow-[0_20px_60px_rgba(21,32,24,0.12)] backdrop-blur-xl md:p-8">
             <div className="mb-6">
+              <div className="mx-auto mb-5 flex w-full justify-center lg:hidden">
+                <div className="relative h-20 w-48 overflow-hidden rounded-2xl border border-[rgba(31,92,63,0.10)] bg-white shadow-[0_10px_24px_rgba(21,32,24,0.08)]">
+                  <Image
+                    src="/logo-bunker19.png"
+                    alt="Bunker 19"
+                    fill
+                    sizes="192px"
+                    className="object-contain p-3"
+                    priority
+                  />
+                </div>
+              </div>
+
               <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(31,92,63,0.10)] bg-[#eef7eb] px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-[#1f5c3f]">
                 <ShieldCheck className="h-4 w-4" />
                 Acceso admin
