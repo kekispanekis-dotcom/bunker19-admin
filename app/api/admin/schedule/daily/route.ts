@@ -74,7 +74,7 @@ export async function GET(request: Request) {
       date,
       schedule,
     });
-   } catch (error) {
+  } catch (error) {
     console.error("ADMIN SCHEDULE ERROR:", error);
 
     return NextResponse.json(
@@ -85,3 +85,4 @@ export async function GET(request: Request) {
       { status: 400 }
     );
   }
+}
