@@ -20,7 +20,9 @@ export default function RootLayout({
           <header className="sticky top-0 z-50 border-b border-[rgba(31,92,63,0.10)] bg-[rgba(255,255,255,0.82)] backdrop-blur-2xl">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-3 md:px-6 lg:px-8">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <Link href="/" className="flex items-center gap-4">
+                <Link href="https://bunker19-reservas.vercel.app/reserve" target="_blank">
+  Ir a reservas
+</Link>
                   <div className="relative h-14 w-44 overflow-hidden rounded-2xl border border-[rgba(31,92,63,0.10)] bg-white shadow-[0_10px_24px_rgba(21,32,24,0.08)]">
                     <Image
                       src="/logo-bunker19.png"
