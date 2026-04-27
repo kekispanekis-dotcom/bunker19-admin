@@ -74,10 +74,14 @@ export async function GET(request: Request) {
       date,
       schedule,
     });
-  } catch (error) {
+   } catch (error) {
+    console.error("ADMIN SCHEDULE ERROR:", error);
+
     return NextResponse.json(
-      { error: "No se pudo cargar la agenda." },
+      {
+        error: "No se pudo cargar la agenda.",
+        detail: error instanceof Error ? error.message : String(error),
+      },
       { status: 400 }
     );
   }
-}
