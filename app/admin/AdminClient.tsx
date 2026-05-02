@@ -216,7 +216,27 @@ export default function AdminPage() {
       alert("Error ejecutando acción.");
     }
   }
+async function markPaid(id: number) {
+  const ok = window.confirm("¿Marcar esta reservación como pagada?");
+  if (!ok) return;
 
+  try {
+    const response = await fetch(`/api/admin/reservations/${id}/mark-paid`, {
+      method: "POST",
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      alert(result.error || "No se pudo marcar como pagada.");
+      return;
+    }
+
+    await fetchSchedule(date);
+  } catch {
+    alert("Error marcando como pagada.");
+  }
+}
   async function openEdit(id: number) {
     setEditLoading(true);
 
