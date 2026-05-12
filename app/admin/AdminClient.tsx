@@ -616,10 +616,10 @@ export default function AdminPage() {
 
       {viewMode === "day" ? (
         <section className="mt-6 overflow-x-auto rounded-[28px] border border-[rgba(31,92,63,0.10)] bg-[rgba(255,255,255,0.78)] p-4 backdrop-blur-xl">
-          <div className="min-w-[1400px]">
+          <div className="w-full">
             <div
               className="grid gap-4"
-              style={{ gridTemplateColumns: `130px repeat(${filteredSchedule.length}, minmax(240px, 1fr))` }}
+              style={{ gridTemplateColumns: `90px repeat(${filteredSchedule.length}, minmax(0, 1fr))` }}
             >
               <div className="rounded-2xl border border-[rgba(31,92,63,0.10)] bg-white p-4 text-sm font-bold text-[#1f5c3f]">
                 Hora
@@ -644,7 +644,7 @@ export default function AdminPage() {
                 <div
                   key={bay.bayCode}
                   className="relative rounded-2xl border border-[rgba(31,92,63,0.10)] bg-[linear-gradient(180deg,#ffffff,#f4f8f2)]"
-                  style={{ height: `${HOURS.length * 96}px` }}
+                  style={{ height: `${HOURS.length * 82}px` }}
                 >
                   {HOURS.map((hour, i) => {
                     const cellKey = `${bay.bayCode}-${hour}`;
@@ -654,7 +654,7 @@ export default function AdminPage() {
                       <div
                         key={`${bay.bayCode}-${hour}`}
                         className={`absolute left-0 right-0 border-b border-[rgba(31,92,63,0.05)] ${isOver ? "bg-[#eaf6e8]" : ""}`}
-                        style={{ top: `${i * 96}px`, height: "96px" }}
+                        style={{ top: `${i * 96}px`, height: "82px" }}
                         onDragOver={(e) => {
                           e.preventDefault();
                           setDragOverCell(cellKey);
@@ -675,8 +675,8 @@ export default function AdminPage() {
                   })}
 
                   {bay.entries.map((entry) => {
-                    const top = startOffset(entry.startTime) * 96;
-                    const height = entry.durationHours * 96;
+                    const top = startOffset(entry.startTime) * 82;
+                    const height = entry.durationHours * 82;
                     const isCancelled = entry.status === "cancelled";
                     const isNoShow = entry.status === "no_show";
                     const isCompleted = entry.status === "completed";
