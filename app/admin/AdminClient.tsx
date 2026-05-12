@@ -42,6 +42,23 @@ type EditData = {
   guestCount: string;
 };
 
+type AnalyticsData = {
+  kpis: {
+    totalReservations: number;
+    totalRevenue: number;
+    totalReservedHours: number;
+    occupancyRate: number;
+    averageTicket: number;
+    topBay: null | {
+      bayCode: string;
+      bayName: string;
+      reservations: number;
+      hours: number;
+      revenue: number;
+    };
+  };
+};
+
 type ReservationDetailResponse = {
   ok: boolean;
   reservation: {
@@ -140,7 +157,10 @@ export default function AdminPage() {
     const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
     return local.toISOString().slice(0, 10);
   });
+
   const [schedule, setSchedule] = useState<BayRow[]>([]);
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [viewMode, setViewMode] = useState<"day" | "week">("day");
@@ -168,6 +188,23 @@ export default function AdminPage() {
     window.location.href = "/admin/login?reason=expired";
   }
 
+  async function fetchAnalytics(targetDate: string) {
+    try {
+      const response = await fetch(
+        `/api/admin/analytics?date=${encodeURIComponent(targetDate)}`,
+        { method: "GET", cache: "no-store" }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) return;
+
+      setAnalytics(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async function fetchSchedule(targetDate: string) {
     setLoading(true);
     setError("");
@@ -186,6 +223,7 @@ export default function AdminPage() {
       }
 
       setSchedule(result.schedule || []);
+      await fetchAnalytics(targetDate);
     } catch {
       setError("Error de conexión con la API.");
     } finally {
@@ -421,6 +459,70 @@ export default function AdminPage() {
           </div>
         </div>
       </section>
+
+      {analytics ? (
+        <section className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <div className="rounded-[28px] bg-[#1f5c3f] p-5 text-white shadow-[0_20px_50px_rgba(31,92,63,0.25)]">
+            <div className="text-xs uppercase tracking-[0.22em] text-white/70">
+              Revenue
+            </div>
+            <div className="mt-3 text-4xl font-black">
+              ${analytics.kpis.totalRevenue}
+            </div>
+            <div className="mt-2 text-sm text-white/70">
+              Ingreso del día
+            </div>
+          </div>
+
+          <div className="rounded-[28px] bg-white p-5 shadow-[0_16px_40px_rgba(21,32,24,0.08)]">
+            <div className="text-xs uppercase tracking-[0.22em] text-[#728076]">
+              Reservaciones
+            </div>
+            <div className="mt-3 text-4xl font-black text-[#1f5c3f]">
+              {analytics.kpis.totalReservations}
+            </div>
+            <div className="mt-2 text-sm text-[#728076]">
+              Reservas activas
+            </div>
+          </div>
+
+          <div className="rounded-[28px] bg-white p-5 shadow-[0_16px_40px_rgba(21,32,24,0.08)]">
+            <div className="text-xs uppercase tracking-[0.22em] text-[#728076]">
+              Occupancy
+            </div>
+            <div className="mt-3 text-4xl font-black text-[#1f5c3f]">
+              {analytics.kpis.occupancyRate}%
+            </div>
+            <div className="mt-2 text-sm text-[#728076]">
+              Ocupación del día
+            </div>
+          </div>
+
+          <div className="rounded-[28px] bg-white p-5 shadow-[0_16px_40px_rgba(21,32,24,0.08)]">
+            <div className="text-xs uppercase tracking-[0.22em] text-[#728076]">
+              Ticket promedio
+            </div>
+            <div className="mt-3 text-4xl font-black text-[#1f5c3f]">
+              ${analytics.kpis.averageTicket}
+            </div>
+            <div className="mt-2 text-sm text-[#728076]">
+              Promedio por reserva
+            </div>
+          </div>
+
+          <div className="rounded-[28px] bg-[linear-gradient(135deg,#d97706,#f59e0b)] p-5 text-white shadow-[0_20px_50px_rgba(217,119,6,0.28)]">
+            <div className="text-xs uppercase tracking-[0.22em] text-white/70">
+              Top Bay
+            </div>
+            <div className="mt-3 text-4xl font-black">
+              {analytics.kpis.topBay?.bayCode || "--"}
+            </div>
+            <div className="mt-2 text-sm text-white/80">
+              Más reservada del día
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="bunker-card mt-6 p-6">
         <div className="flex flex-col gap-4">
