@@ -616,10 +616,10 @@ export default function AdminPage() {
 
       {viewMode === "day" ? (
         <section className="mt-6 overflow-x-auto rounded-[28px] border border-[rgba(31,92,63,0.10)] bg-[rgba(255,255,255,0.78)] p-4 backdrop-blur-xl">
-          <div className="min-w-[1850px]">
+          <div className="min-w-[1400px]">
             <div
               className="grid gap-4"
-              style={{ gridTemplateColumns: `130px repeat(${filteredSchedule.length}, minmax(320px, 320px))` }}
+              style={{ gridTemplateColumns: `130px repeat(${filteredSchedule.length}, minmax(240px, 1fr))` }}
             >
               <div className="rounded-2xl border border-[rgba(31,92,63,0.10)] bg-white p-4 text-sm font-bold text-[#1f5c3f]">
                 Hora
@@ -694,7 +694,7 @@ export default function AdminPage() {
                           setDraggedReservationId(null);
                           setDragOverCell(null);
                         }}
-                        className={`absolute left-3 right-3 overflow-hidden rounded-2xl border p-3
+                        className={`absolute left-2 right-2 overflow-hidden rounded-2xl border p-2.5 shadow-[0_10px_24px_rgba(21,32,24,0.08)] ${
                           draggable ? "cursor-move" : "cursor-default opacity-80"
                         } ${statusClass(entry.status)}`}
                         style={{ top: `${top + 4}px`, height: `${height - 8}px` }}
