@@ -644,7 +644,7 @@ export default function AdminPage() {
                 <div
                   key={bay.bayCode}
                   className="relative rounded-2xl border border-[rgba(31,92,63,0.10)] bg-[linear-gradient(180deg,#ffffff,#f4f8f2)]"
-                  style={{ height: `${HOURS.length * 82}px` }}
+                  style={{ height: `${HOURS.length * 110}px` }}
                 >
                   {HOURS.map((hour, i) => {
                     const cellKey = `${bay.bayCode}-${hour}`;
@@ -654,7 +654,7 @@ export default function AdminPage() {
                       <div
                         key={`${bay.bayCode}-${hour}`}
                         className={`absolute left-0 right-0 border-b border-[rgba(31,92,63,0.05)] ${isOver ? "bg-[#eaf6e8]" : ""}`}
-                        style={{ top: `${i * 96}px`, height: "82px" }}
+                        style={{ top: `${i * 96}px`, height: "110px" }}
                         onDragOver={(e) => {
                           e.preventDefault();
                           setDragOverCell(cellKey);
@@ -675,8 +675,8 @@ export default function AdminPage() {
                   })}
 
                   {bay.entries.map((entry) => {
-                    const top = startOffset(entry.startTime) * 82;
-                    const height = entry.durationHours * 82;
+                    const top = startOffset(entry.startTime) * 110;
+                    const height = entry.durationHours * 110;
                     const isCancelled = entry.status === "cancelled";
                     const isNoShow = entry.status === "no_show";
                     const isCompleted = entry.status === "completed";
@@ -697,7 +697,7 @@ export default function AdminPage() {
                         className={`absolute left-2 right-2 overflow-hidden rounded-2xl border p-2.5 shadow-[0_10px_24px_rgba(21,32,24,0.08)] ${
                           draggable ? "cursor-move" : "cursor-default opacity-80"
                         } ${statusClass(entry.status)}`}
-                        style={{ top: `${top + 4}px`, height: `${height - 8}px` }}
+                        style={{ top: `${top + 4}px`, height: `${height - 12}px` }}
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
