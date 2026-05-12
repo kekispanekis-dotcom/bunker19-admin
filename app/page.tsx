@@ -25,8 +25,7 @@ export default function HomePage() {
                 href="/reserve"
                 className="rounded-2xl bg-white px-6 py-3 text-center font-bold text-[#1f5c3f] transition hover:opacity-95"
               >
-                Nueva reservación
-              </Link>
+
 
               <Link
                 href="/admin"
